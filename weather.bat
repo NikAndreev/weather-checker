@@ -27,6 +27,12 @@ curl "https://api.openweathermap.org/data/2.5/weather?q=%city%&units=metric&appi
 
 endlocal
 
+if not exist weather.json (
+  echo Ошибка от сервера...
+  pause
+  exit /b
+)
+
 powershell -Command ^
     "$data = Get-Content weather.json | ConvertFrom-Json; " ^
     "Write-Host ('Погода в ' + $data.name + ':'); " ^
@@ -35,5 +41,7 @@ powershell -Command ^
     "Write-Host ('Описание: ' + $data.weather[0].description); " ^
     "Write-Host ('Влажность: ' + [string]$data.main.humidity + '%%'); " ^
     "Write-Host ('Скорость ветра: ' + [string]$data.wind.speed + ' м/с'); "
+
+del weather.json
 
 pause
