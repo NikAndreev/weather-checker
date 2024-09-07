@@ -1,6 +1,8 @@
 @echo off
 chcp 65001
 
+title Weather Checker
+
 if not exist .env (
   echo .env файл не найден!
   pause
